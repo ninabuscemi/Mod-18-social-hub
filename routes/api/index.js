@@ -1,30 +1,13 @@
-// Imports express and creates instance of the router
+// Import the express router
 const router = require('express').Router();
-// Imports necessary controller functions from userController.js
-const {
-  getAllUsers,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
-  addFriend,
-  deleteFriend
-} = require('../../controllers/userController');
 
-// Define user routes
-// Each route is associated with a specific controller function
-router.route('/')
-  .get(getAllUsers)
-  .post(createUser);
+// Import userRoutes and thoughtRoutes
+const userRoutes = require('./userRoutes');
+const thoughtRoutes = require('./thoughtRoutes');
 
-router.route('/:id')
-  .get(getUserById)
-  .put(updateUser)
-  .delete(deleteUser);
+// Set up routes for users and thoughts
+router.use('/users', userRoutes); // Routes for handling user-related operations
+router.use('/thoughts', thoughtRoutes); // Routes for handling thought-related operations
 
-router.route('/:userId/friends/:friendId')
-  .post(addFriend)
-  .delete(deleteFriend);
-
-// Exports the router for use in other parts of the application
+// Export the router
 module.exports = router;

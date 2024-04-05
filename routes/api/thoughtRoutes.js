@@ -1,31 +1,28 @@
-// Exports express and creates instance of router
+// Import the express router
 const router = require('express').Router();
-// Imports necessary controller functions from thoughtController.js
+
+// Import necessary controllers from thoughtController
 const {
-  getAllThoughts,
-  getThoughtById,
   createThought,
+  getThoughts,
+  getThoughtById,
   updateThought,
   deleteThought,
   addReaction,
-  deleteReaction
-} = require('../../controllers/thoughtController');
+  removeReaction,
+} = require('../../controllers/thoughtController.js');
 
-// Define thought routes (GET, POST, PUT, DELETE)
-router.route('/')
-  .get(getAllThoughts)
-  .post(createThought);
+// Routes for handling GET and POST requests to /api/thoughts
+router.route('/').get(getThoughts).post(createThought);
 
-router.route('/:thoughtId')
-  .get(getThoughtById)
-  .put(updateThought)
-  .delete(deleteThought);
+// Routes for handling GET, PUT, and DELETE requests to /api/thoughts/:id
+router.route('/:id').get(getThoughtById).put(updateThought).delete(deleteThought);
 
-router.route('/:thoughtId/reactions')
-  .post(addReaction);
+// Routes for handling POST requests to /api/thoughts/:thoughtId/reactions
+router.route("/:thoughtId/reactions").post(addReaction);
 
-router.route('/:thoughtId/reactions/:reactionId')
-  .delete(deleteReaction);
+// Routes for handling DELETE requests to /api/thoughts/:thoughtId/reactions/:reactionId
+router.route("/:thoughtId/reactions/:reactionId").delete(removeReaction);
 
-// Exports the router for use in other parts of the app
+// Export the router
 module.exports = router;

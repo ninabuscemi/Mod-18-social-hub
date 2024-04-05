@@ -1,46 +1,57 @@
 const { Schema, model } = require('mongoose');
 
+// Define the schema for users
 const userSchema = new Schema(
-  {
-    username: {
-      type: String,
-      unique: true,
-      required: true,
-      trim: true
+    {
+        // Username of the user
+        username: { 
+            type: String, 
+            unique: true, 
+            required: "Username is required", 
+            trim: true 
+        },
+        // Email of the user
+        email: { 
+            type: String, 
+            unique: true, 
+            required: "Email is required", 
+            lowercase: true, 
+            match: [/.+@.+\..+/], 
+        },
+        // Array of thought IDs associated with the user
+        thoughts: [
+            { 
+                type: Schema.Types.ObjectId, 
+                ref: 'thought' 
+            }
+        ],
+        // Array of user IDs representing the user's friends
+        friends: [
+            {
+              type: Schema.Types.ObjectId,
+              ref: "user",
+            },
+        ],
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      match: [/.+@.+\..+/, 'Please enter a valid email address']
-    },
-    thoughts: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Thought'
-      }
-    ],
-    friends: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ]
-  },
-  {
-    toJSON: {
-      virtuals: true,
-      getters: true
-    },
-    id: false
-  }
+    {
+        // Include virtuals when converting to JSON
+        toJSON: {
+            virtuals: true
+        },
+        // Exclude _id field
+        id: false,
+    }
 );
 
-// Virtual to get the count of user's friends
-userSchema.virtual('friendCount').get(function() {
-  return this.friends.length;
+// Define a virtual field to get the count of friends for each user
+const friendCount = userSchema.virtual('friendCount');
+
+// Define the getter function for the virtual field
+friendCount.get(function () {
+    return this.friends.length;
 });
 
-const User = model('User', userSchema);
+// Create the User model based on the userSchema
+const User = model('user', userSchema);
 
 module.exports = User;
