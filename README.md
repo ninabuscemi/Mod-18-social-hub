@@ -10,7 +10,7 @@ The purpose of this project was to build from scratch an API for a social networ
 
 [Download repo](https://github.com/ninabuscemi/Mod-18-social-hub)
 
-[GoogleDrive Link](https://drive.google.com/file/d/1S45Q0a2_L0lb-iiYDXEg8InE3zRrJsfw/view?usp=sharing)
+[GoogleDrive Link](https://drive.google.com/file/d/1g98I1d8wSzGRIXjvu9WOlw-OOVBcd2Gj/view?usp=sharing)
 
 ## Usage
 
