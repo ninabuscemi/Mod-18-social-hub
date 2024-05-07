@@ -1,4 +1,4 @@
-# Mod-18-social-hub
+# Social Hub (Web Application)
 
 ![License Badge](https://badgen.net/static/license/MIT/blue)
 
